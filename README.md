@@ -1,8 +1,15 @@
 # Debugra
 
+[![Live](https://img.shields.io/badge/Live-debugra.tech-8b5cf6?style=flat-square&logo=vercel&logoColor=white)](https://debugra.tech)
+[![GitHub](https://img.shields.io/badge/GitHub-omkhandare55%2FDebugra-181717?style=flat-square&logo=github)](https://github.com/omkhandare55/Debugra)
+[![Backend](https://img.shields.io/badge/Backend-Cloud%20Run-4285F4?style=flat-square&logo=googlecloud&logoColor=white)](https://cloud.google.com/run)
+
+> **Live at → [https://debugra.tech](https://debugra.tech)**
+
 A professional, real-time collaborative code editor for developers and CS students. Built with a VS Code-inspired UI, AI-powered debugging, multi-language code execution, and an industry-level component architecture.
 
 ---
+
 
 ## Features
 
@@ -167,13 +174,25 @@ Frontend runs at `http://localhost:5173`, backend at `http://localhost:3001`.
 
 ## Deployment
 
-### Frontend — Vercel
+### Frontend — Vercel + Custom Domain
 
 1. Push code to GitHub.
 2. Import the repository at [vercel.com](https://vercel.com) — Vite is auto-detected.
 3. Add all `VITE_*` environment variables in the Vercel dashboard.
 4. Set `VITE_API_URL` to your Cloud Run backend URL.
 5. Click **Deploy**.
+6. Go to **Settings → Domains** → add `debugra.tech` and `www.debugra.tech`.
+7. Add these DNS records at your domain registrar:
+
+| Type | Name | Value |
+|------|------|-------|
+| `A` | `@` | `76.76.21.21` |
+| `CNAME` | `www` | `cns.vercel-dns.com` |
+
+> Vercel automatically provisions a free SSL certificate once DNS propagates (5 min – 48 hrs).
+
+> **Firebase** → Authentication → Settings → Authorized Domains → add `debugra.tech` and `www.debugra.tech` to prevent sign-in errors on the live domain.
+
 
 ### Backend — Google Cloud Run
 
