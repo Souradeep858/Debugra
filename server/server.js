@@ -159,7 +159,7 @@ app.use(cors({
   },
   credentials: true,
   methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-groq-api-key', 'x-admin-token', 'x-security-diagnostics-token'],
   optionsSuccessStatus: 204,
 }));
 
