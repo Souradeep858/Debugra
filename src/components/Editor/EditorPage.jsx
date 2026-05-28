@@ -58,6 +58,7 @@ export default function EditorPage({ user }) {
   const [minimapSide, setMinimapSide] = useState('right');
   const [showSettings, setShowSettings] = useState(false);
   const [showVideoCall, setShowVideoCall] = useState(false);
+  const [blurIntensity, setBlurIntensity] = useState(10); //Adds State for wallpaper blur
   const resizingRef = useRef(false);
 
   const isMobile = useIsMobile();
@@ -270,7 +271,7 @@ export default function EditorPage({ user }) {
   const editorFileName = LANG_FILE_NAMES[editor.language] || 'main.txt';
 
   return (
-    <div style={{ height: '100dvh', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ height: '100dvh', display: 'flex', flexDirection: 'column', '--blur-intensity': `${blurIntensity}px` }}>
       {/* ===== TOP BAR ===== */}
       <div className="topbar px-2 px-md-3">
         <div className="topbar-left d-flex align-items-center">
@@ -662,7 +663,7 @@ export default function EditorPage({ user }) {
                 <Settings size={14} />
               </button>
               {showSettings && (
-                <div className="audio-settings-popover" role="dialog" aria-label="Settings">
+                <div className="audio-settings-popover custom-layout-popover" role="dialog" aria-label="Settings">
                   <div className="audio-settings-head">
                     <span>Settings</span>
                     <button
@@ -691,6 +692,27 @@ export default function EditorPage({ user }) {
                         </option>
                       ))}
                     </select>
+                  </div>
+                  {/* ===== WALLPAPER BLUR SETTING ROW ===== */}
+                  <div className="audio-settings-row" style={{ marginTop: '12px' }}>
+                    <div className="audio-settings-label">
+                      <i className="bi bi-sliders" style={{ fontSize: '14px' }} />
+                      <span>Wallpaper Blur</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', width: '100%' }}>
+                      <input
+                        type="range"
+                        min="0"
+                        max="30"
+                        step="1"
+                        value={blurIntensity}
+                        onChange={(e) => setBlurIntensity(Number(e.target.value))}
+                        style={{ flex: 1, accentColor: '#00bcd4' }} 
+                      />
+                      <span style={{ fontSize: '12px', minWidth: '30px', textAlign: 'right' }}>
+                        {blurIntensity}px
+                      </span>
+                    </div>
                   </div>
                   <div className="audio-settings-row">
                     <div className="audio-settings-label">
@@ -764,7 +786,7 @@ export default function EditorPage({ user }) {
       <div className="main-split">
         {/* EDITOR PANE */}
         <div
-          className="editor-pane"
+          className="editor-pane glass-panel"
           style={isMobile && mobileTab !== MOBILE_TABS.CODE ? { display: 'none' } : {}}
         >
           <div className="editor-tab-bar">
@@ -916,7 +938,7 @@ export default function EditorPage({ user }) {
 
         {/* OUTPUT PANE */}
         <div
-          className="output-pane"
+          className="output-pane glass-panel"
           style={
             isMobile
               ? mobileTab === MOBILE_TABS.OUTPUT
